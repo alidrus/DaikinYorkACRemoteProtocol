@@ -61,42 +61,31 @@ typedef struct {
     const char header = 'h';
 
     // Operation mode
-    operation_mode_t operationMode = OPERATION_MODE_COOL;
+    operation_mode_t operationMode;
 
     // Fan Mode
-    fan_mode_t fanMode = FAN_MODE_AUTO;
+    fan_mode_t fanMode;
 
-    // Current Time { hour, minute }
-    time_struct_t currentTime = {
-        0,
-        0
-    };
+    // Current Time
+    time_struct_t currentTime;
 
-    // On Timer { hour, halfHour, active }
-    timer_struct_t onTimer = {
-        0,
-        false,
-        false
-    };
+    // On Timer
+    timer_struct_t onTimer;
 
     // Off Timer { hour, halfHour, active }
-    timer_struct_t offTimer = {
-        0,
-        false,
-        false
-    };
+    timer_struct_t offTimer;
 
     // Temperature Setting
-    int temperature = 28;
+    int temperature;
 
     // Louvre Swing
-    bool swing = true;
+    bool swing;
 
     // Sleep Mode
-    bool sleep = false;
+    bool sleep;
 
     // Power Button
-    bool powerButton = false;
+    bool powerButton;
 } ac_settings_t;
 
 class DaikinDGS01Remote

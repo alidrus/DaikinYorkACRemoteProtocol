@@ -4,6 +4,21 @@
 
 // Class Constructor
 DaikinDGS01Remote::DaikinDGS01Remote() {
+    // Initialize the settings with default values
+    settings.operationMode      = OPERATION_MODE_COOL;
+    settings.fanMode            = FAN_MODE_AUTO;
+    settings.currentTime.hour   = 0;;
+    settings.currentTime.minute = 0;;
+    settings.onTimer.hour       = 0;
+    settings.onTimer.halfHour   = true;
+    settings.onTimer.active     = false;
+    settings.offTimer.hour      = 0;
+    settings.offTimer.halfHour  = true;
+    settings.offTimer.active    = false;
+    settings.temperature        = 28;
+    settings.swing              = true;
+    settings.sleep              = false;
+    settings.powerButton        = false;
 }
 
 // Set the operation mode of bit
