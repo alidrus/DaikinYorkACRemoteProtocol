@@ -1,0 +1,43 @@
+#######################################
+# Syntax Coloring Map For IRremote
+#######################################
+
+#######################################
+# Datatypes (KEYWORD1)
+#######################################
+
+DaikinDGS01Remote   KEYWORD1
+time_struct_t       KEYWORD1
+timer_struct_t      KEYWORD1
+operation_mode_t    KEYWORD1
+fan_mode_t          KEYWORD1
+ac_settings_t       KEYWORD1
+
+#######################################
+# Methods and Functions (KEYWORD2)
+#######################################
+
+setOperationMode   KEYWORD2
+setFanMode         KEYWORD2
+setTime            KEYWORD2
+setOnTimer         KEYWORD2
+setOffTimer        KEYWORD2
+setTemperature     KEYWORD2
+setSleep           KEYWORD2
+setSwing           KEYWORD2
+getRawTimings      KEYWORD2
+reverseNibble      KEYWORD2
+
+#######################################
+# Constants (LITERAL1)
+#######################################
+
+OPERATION_MODE_DRY        LITERAL1
+OPERATION_MODE_COOL       LITERAL1
+OPERATION_MODE_FAN        LITERAL1
+FAN_MODE_MANUAL_SPEED_1   LITERAL1
+FAN_MODE_MANUAL_SPEED_2   LITERAL1
+FAN_MODE_MANUAL_SPEED_3   LITERAL1
+FAN_MODE_AUTO             LITERAL1
+FAN_MODE_QUIET            LITERAL1
+FAN_MODE_TURBO            LITERAL1
