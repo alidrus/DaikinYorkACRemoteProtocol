@@ -145,4 +145,5 @@ Second last nibble has the louvre swing bit, sleep mode bit, an unchanged bit th
     1110 = Louvre swing on, sleep mode on, power button not pressed
     1111 = Louvre swing on, sleep mode on, power button pressed
 
-The last nibble (????) seems to be some kind of checksum or error checking. No idea how it works.
+The last nibble was hard to decypher but apparently turned out to be a sum of
+all the reverse bit order nibbles before it in reverse order.
