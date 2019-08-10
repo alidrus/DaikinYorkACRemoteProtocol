@@ -1,0 +1,148 @@
+# Raw Pulses can be divided into 3 parts
+Start Transmission: 3 very long marks with almost equally long spaces after
+                    each one. e.g:
+
+                    9824 9772 9828 9776 4620 2472
+
+Data Pulses:        Binary 1s and 0s. 1 is represended by a short mark followed
+                    by long a space. 0 is represented by a short mark followed
+                    by a space of the same length. e.g:
+
+                    372 356 368 944 368 948 372 368 364 948 368 368 368 364 364
+                    376 368 364 368 940 372 364 372 364 368 940 372 368 364 368
+                    368 376 364 940 368 368 364 372 364 944 368 368 368 368 368
+                    364 368 376 368 360 368 944 368 368 368 364 368 368 392 924
+                    368 368 368 376 368 936 368 944 388 348 368 364 368 368 368
+                    948 368 944 368 376 368 936 372 364 368 368 368 368 364 368
+                    372 364 368 368 364 376 368 364 364 944 372 944 372 364 372
+                    940 368 368 368 368 368 376 364 364 368 364 368 948 396 344
+                    364 372 364 368 368 944 368 952
+
+Stop Transmission:  3 final pulses mark the end of transmission. e.g:
+
+                    368 20344 4596
+
+
+# Fan and Swing Analysis (Fan 0 = auto fan speed, Fan 1/2/3 = manual fan speeds)
+0110  + 1000  + 0100  + 1000  + 1010  + 1000  + 0110  + 1000  + 1001  + 1010  + 0000  + 0101  + 0110  + 1000  + 0010  + 0101  (ModeCooFan0Swing0)
+0110  + 1000  + 0100  + 0001  + 1010  + 1000  + 0110  + 1000  + 1001  + 1010  + 0000  + 0101  + 0110  + 1000  + 0010  + 1000  (ModeCooFan1Swing0)
+0110  + 1000  + 0100  + 0010  + 1010  + 1000  + 0110  + 1000  + 1001  + 1010  + 0000  + 0101  + 0110  + 1000  + 0010  + 1011  (ModeCooFan2Swing0)
+0110  + 1000  + 0100  + 0100  + 1010  + 1000  + 0110  + 1000  + 1001  + 1010  + 0000  + 0101  + 0110  + 1000  + 0010  + 1101  (ModeCooFan3Swing0)
+0110  + 1000  + 0100  + 1000  + 0010  + 0100  + 0110  + 1000  + 1000  + 0000  + 0010  + 0101  + 0110  + 1000  + 1010  + 1101  (ModeCooFan0Swing1)
+
+# Fan and Swing Analysis (Fan 0 = auto fan speed, Fan 1/2/3 = manual fan speeds)
+0110  + 1000  + 0010  + 0001  + 0000  + 0100  + 0110  + 1000  + 1001  + 1010  + 0000  + 0101  + 0110  + 1000  + 0010  + 1111  (ModeFanFan1Swing0)
+0110  + 1000  + 0010  + 0010  + 1000  + 0100  + 0110  + 1000  + 1001  + 1010  + 0000  + 0101  + 0110  + 1000  + 0010  + 0011  (ModeFanFan2Swing0)
+0110  + 1000  + 0010  + 0100  + 1000  + 0100  + 0110  + 1000  + 1001  + 1010  + 0000  + 0101  + 0110  + 1000  + 0010  + 0101  (ModeFanFan3Swing0)
+0110  + 1000  + 0010  + 0100  + 0110  + 0100  + 0110  + 1000  + 1001  + 1010  + 0000  + 0101  + 0110  + 1000  + 0010  + 1111  (ModeFanFan3Swing0x)
+0110  + 1000  + 0010  + 0100  + 0110  + 0100  + 0110  + 1000  + 1001  + 1010  + 0000  + 0101  + 0110  + 1000  + 1010  + 0000  (ModeFanFan3Swing1)
+
+
+# Pressing/Not Pressing Power Button:
+0110  + 1000  + 0100  + 1000  + 1010  + 0010  + 0000  + 0100  + 1001  + 1010  + 0000  + 0101  + 0110  + 1000  + 1010  + 1001  (ModeCooFan0Swing1Temp16)
+0110  + 1000  + 0100  + 1000  + 1010  + 0100  + 1000  + 0100  + 1001  + 1010  + 0000  + 0101  + 0110  + 1000  + 1011  + 0000  (ModeCooFan0Swing1Temp16Pow1)
+0110  + 1000  + 0100  + 1000  + 1001  + 0100  + 1000  + 0100  + 1001  + 1010  + 0000  + 0101  + 0110  + 1000  + 1011  + 0010  (ModeCooFan0Swing1Temp16Pow2)
+0110  + 1000  + 0100  + 1000  + 0000  + 1100  + 1000  + 0100  + 1001  + 1010  + 0000  + 0101  + 0110  + 1000  + 1011  + 0011  (ModeCooFan0Swing1Temp16Pow3)
+0110  + 1000  + 0010  + 0001  + 0110  + 1100  + 1000  + 0100  + 1001  + 1010  + 0000  + 0101  + 0110  + 1000  + 1010  + 1100  (ModeFanFan1Swing1)
+0110  + 1000  + 0010  + 0001  + 0110  + 1100  + 1000  + 0100  + 1001  + 1010  + 0000  + 0101  + 0110  + 1000  + 1010  + 1100  (ModeFanFan1Swing1)
+0110  + 1000  + 0010  + 0001  + 0110  + 1100  + 1000  + 0100  + 1001  + 1010  + 0000  + 0101  + 0110  + 1000  + 1011  + 1101  (ModeFanFan1Swing1Pow1)
+
+
+# Changing Temperature Settings:
+0110  + 1000  + 0100  + 1000  + 1010  + 0010  + 0000  + 0100  + 1001  + 1010  + 0000  + 0101  + 0110  + 1000  + 1010  + 1001  (ModeCooFan0Swing1Temp16)
+0110  + 1000  + 0100  + 1000  + 1010  + 0010  + 0000  + 0100  + 1001  + 1010  + 0000  + 0101  + 1110  + 1000  + 1010  + 0101  (ModeCooFan0Swing1Temp17)
+0110  + 1000  + 0100  + 1000  + 1010  + 0010  + 0000  + 0100  + 1001  + 1010  + 0000  + 0101  + 0001  + 1000  + 1010  + 1101  (ModeCooFan0Swing1Temp18)
+0110  + 1000  + 0100  + 1000  + 0110  + 0010  + 0000  + 0100  + 1001  + 1010  + 0000  + 0101  + 1001  + 1000  + 1010  + 1011  (ModeCooFan0Swing1Temp19)
+0110  + 1000  + 0100  + 1000  + 0110  + 0010  + 0000  + 0100  + 1001  + 1010  + 0000  + 0101  + 0000  + 0100  + 1010  + 1010  (ModeCooFan0Swing1Temp20)
+0110  + 1000  + 0100  + 1000  + 0110  + 0010  + 0000  + 0100  + 1001  + 1010  + 0000  + 0101  + 1000  + 0100  + 1010  + 0110  (ModeCooFan0Swing1Temp21)
+0110  + 1000  + 0100  + 1000  + 1110  + 0010  + 0000  + 0100  + 1001  + 1010  + 0000  + 0101  + 0100  + 0100  + 1010  + 0001  (ModeCooFan0Swing1Temp22)
+0110  + 1000  + 0100  + 1000  + 1110  + 0000  + 0000  + 0100  + 1001  + 1010  + 0000  + 0101  + 1000  + 0100  + 1010  + 1001  (ModeCooFan0Swing1Temp23)
+0110  + 1000  + 0100  + 1000  + 0001  + 0010  + 0000  + 0100  + 1001  + 0010  + 0000  + 0101  + 0010  + 0100  + 1010  + 1101  (ModeCooFan0Swing1Temp24)
+
+# Turbo, Quiet, Sleep
+0110  + 1000  + 0100  + 1000  + 0110  + 0010  + 1000  + 0000  + 1001  + 1010  + 0000  + 0101  + 0110  + 1000  + 1010  + 1001  (ModeCooFan0Swing1Temp16Turbo0)
+0110  + 1000  + 0100  + 1100  + 0110  + 0010  + 1000  + 0000  + 1001  + 1010  + 0000  + 0101  + 0110  + 1000  + 1010  + 1101  (ModeCooFan0Swing1Temp16Turbo1)
+0110  + 1000  + 0100  + 1001  + 1000  + 1010  + 1000  + 0000  + 1001  + 1010  + 0000  + 0101  + 0110  + 1000  + 1010  + 1011  (ModeCooFan0Swing1Temp16Quiet1)
+0110  + 1000  + 0100  + 1000  + 0100  + 1010  + 1000  + 0000  + 1001  + 1010  + 0000  + 0101  + 0110  + 1000  + 1010  + 0110  (ModeCooFan0Swing1Temp16Quiet0)
+0110  + 1000  + 0100  + 1000  + 0000  + 1000  + 0100  + 0000  + 1001  + 1010  + 0000  + 0101  + 0110  + 1000  + 1110  + 1100  (ModeCooFan0Swing1Temp16Sleep1)
+0110  + 1000  + 0100  + 1000  + 0010  + 1000  + 0100  + 0000  + 1001  + 1010  + 0000  + 0101  + 0110  + 1000  + 1010  + 1010  (ModeCooFan0Swing1Temp16Sleep0)
+0110  + 1000  + 0100  + 1000  + 0110  + 1000  + 0100  + 0000  + 1001  + 1010  + 0000  + 0101  + 0110  + 1000  + 1110  + 1110  (ModeCooFan0Swing1Temp16Sleep1A)
+
+# Time Set
+0110  + 1000  + 0100  + 1000  + 1010  + 0010  + 0110  + 0000  + 0000  + 1000  + 0000  + 1000  + 0110  + 1000  + 0010  + 0110  (Time06:45am)
+0110  + 1000  + 0100  + 1000  + 1100  + 1010  + 0110  + 0000  + 0000  + 1000  + 0000  + 1000  + 0110  + 1000  + 0010  + 1010  (Time06:53am)
+0110  + 1000  + 0100  + 1000  + 0010  + 0000  + 0001  + 0000  + 0000  + 1000  + 0000  + 1000  + 0110  + 1000  + 0010  + 1100  (Time08:04am)
+0110  + 1000  + 0100  + 1000  + 1110  + 1100  + 0000  + 1000  + 0000  + 1000  + 0000  + 1000  + 0110  + 1000  + 0010  + 0100  (Time10:37am)
+0110  + 1000  + 0100  + 1000  + 1010  + 0010  + 0100  + 1000  + 0000  + 1000  + 0000  + 1000  + 0110  + 1000  + 0010  + 1100  (Time12:45pm)
+0110  + 1000  + 0100  + 1000  + 1100  + 0000  + 1100  + 1000  + 0000  + 1000  + 0000  + 1000  + 0110  + 1000  + 0010  + 0111  (Time01:03pm)
+
+# Timer On Set/Unset
+0110  + 1000  + 0100  + 1000  + 1110  + 0000  + 1010  + 1000  + 0000  + 1001  + 0100  + 0010  + 0110  + 1000  + 0010  + 1000  (10:00OnTimerOn)
+0110  + 1000  + 0100  + 1000  + 0001  + 0000  + 1010  + 1000  + 0000  + 1000  + 0100  + 0010  + 0110  + 1000  + 0010  + 0101  (10:00OnTimerOff)
+0110  + 1000  + 0100  + 1000  + 1100  + 1000  + 1010  + 1000  + 1100  + 0111  + 0100  + 0010  + 0110  + 1000  + 0010  + 0110  (23:30OnTimerOn)
+0110  + 1000  + 0100  + 1000  + 1100  + 1000  + 1010  + 1000  + 1100  + 0110  + 0100  + 0010  + 0110  + 1000  + 0010  + 0111  (23:30OnTimerOff)
+
+# Timer Off Set/Unset
+0110  + 1000  + 0100  + 1000  + 0001  + 1000  + 1010  + 1000  + 1100  + 0110  + 1000  + 0001  + 0110  + 1000  + 0010  + 0110  (01:00OffTimerOn)
+0110  + 1000  + 0100  + 1000  + 1001  + 1000  + 1010  + 1000  + 1100  + 0110  + 1000  + 0000  + 0110  + 1000  + 0010  + 1111  (01:00OffTimerOff)
+0110  + 1000  + 0100  + 1000  + 1010  + 1000  + 1010  + 1000  + 1100  + 0110  + 0010  + 1011  + 0110  + 1000  + 0010  + 1101  (14:30OffTimerOn)
+0110  + 1000  + 0100  + 1000  + 1110  + 1000  + 1010  + 1000  + 1100  + 0110  + 0010  + 1010  + 0110  + 1000  + 0010  + 1010  (14:30OffTimerOff)
+
+# Operation modes
+0110  + 1000  + 0100  + 1000  + 1001  + 0000  + 0100  + 0100  + 1100  + 0110  + 1000  + 0000  + 0110  + 1000  + 0010  + 0011  (ModeCool)
+0110  + 1000  + 1000  + 1000  + 1001  + 0000  + 0100  + 0100  + 1100  + 0110  + 1000  + 0000  + 0110  + 1000  + 0010  + 1101  (ModeDry)
+0110  + 1000  + 0010  + 0001  + 1001  + 0000  + 0100  + 0100  + 1100  + 0110  + 1000  + 0000  + 0110  + 1000  + 0010  + 1010  (ModeFan)
+
+
+# Format
+8-BIT-DATA-HDR  MODE    FANS    TIME    TIME    TIME    TIME    OFFT    OFFT    ONTI    ONTI    TEMP    TEMP    SSUP    4-BIT-CHECKSUM
+                                  0M      M0      0H      H0      0H      3S      0H      3S      0T      T0    WL O
+                                                                          0E              0E                    IE W
+                                                                          MT              MT                    NE E
+                                                                                                                GP R
+8-BIT-DATA-HDR = Appears to be a binary representation of ASCII 'h' (h for header?)
+
+MODE breakdown:
+1000 = Dry Mode
+0100 = Cooling Mode
+0010 = Fan Mode
+
+FANS breakdown:
+    1xxx = Automatic Mode
+    xxx1 = Speed 1
+    xx1x = Speed 2
+    x1xx = Speed 3
+    e.g.:
+    1100 = Auto Fan Speed 3 = Turbo
+    1001 = Auto Fan Speed 1 = Quiet
+    1000 = Auto Fan Speed 0 = Auto
+    0001 = Manual Fan Speed 1
+    0010 = Manual Fan Speed 2
+    0100 = Manual Fan Speed 3
+
+TIME is expressed in 24 hour format using 4 nibbles representing digits in
+reverse order, e.g:
+    06:45 AM = 1010 0010 0110 0000
+                  5    4    6    0 = 0645
+    06:53 AM = 1100 1010 0110 0000
+                  3    5    6    0 = 0653
+    01:03 PM = 1100 0000 1100 1000
+                  3    0    3    1 = 1303
+
+OFFT, the OFF timer uses only 2 nibbles, first nibble is the time LSB, first 2 bits of second nibble is the MSB 
+
+ONTI, the On timer follows the same format as OFFT
+
+TEMP, the temperature setting is represented by 2 nibbles, the first being the LSB, the second being MSB:
+    16 C = 0110 1000
+              6    1
+    21 C = 0001 0100
+              1    2
+
+Second last nibble has the louvre swing bit, sleep mode bit, an unchanged bit that is always 1 and the power button bit:
+    1010 = Louvre swing on, sleep mode off, power button not pressed
+    0010 = Louvre swing on, sleep mode off, power button not pressed
+    1110 = Louvre swing on, sleep mode on, power button not pressed
+    1111 = Louvre swing on, sleep mode on, power button pressed
+
+The last nibble (????) seems to be some kind of checksum or error checking. No idea how it works.
