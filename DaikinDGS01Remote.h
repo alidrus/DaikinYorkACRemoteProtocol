@@ -54,19 +54,25 @@ class DaikinDGS01Remote
 
         byte reverseNibble(byte nibble, bool leftNibble = false);
 
-        // Mark and space lengths
-        const unsigned int markLength   = 368;
-        const unsigned int spaceLength0 = 368;
-        const unsigned int spaceLength1 = 944;
+        // Pulse and pause lengths
+        const unsigned int pulseLength  = 368; // 368 us pulse
+        const unsigned int pauseLength0 = 368; // 368 us space
+        const unsigned int pauseLength1 = 944; // 944 us space
 
-        // Start transmission timings
-        const unsigned int startTransmission[6] = {
-            9788, 9676, 9812, 9680, 4652, 2408
+        // The "beginning of transmission" signal consists of the following
+        // pulse/pause pairs
+        const unsigned int beginTransmission[6] = {
+            9788, 9676, // 9.788ms pulse, 9.676ms pause
+            9812, 9680, // 9.812ms pulse, 9.680ms pause
+            4652, 2408  // 4.652ms pulse, 2.408ms pause
         };
 
-        // Stop transmission timings
-        const unsigned int stopTransmission[3] = {
-            368, 20340, 4624
+        // The "end of transmission" signal consists of the following pulses
+        // and pause
+        const unsigned int endTransmission[3] = {
+            368,   // 368us pulse
+            20340, // 20.34ms pause
+            4624   // 4.624 ms pulse
         };
 
         // Air conditioner settings
