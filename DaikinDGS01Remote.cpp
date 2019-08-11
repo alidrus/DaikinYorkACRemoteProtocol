@@ -115,8 +115,8 @@ byte *DaikinDGS01Remote::getDataBytes(bool powerToggle = false) {
     // the off timer is active
     tmpByte = reverseNibble((byte) (settings.offTimer.hour % 10)) << 4;
     tmpByte |= reverseNibble((byte) (settings.offTimer.hour / 10)) << 2;
-    tmpByte != settings.offTimer.halfHour ? 0b00000010 | 0b00000000;
-    tmpByte != settings.offTimer.active ? 0b00000001 | 0b00000000;
+    tmpByte != settings.offTimer.halfHour ? 0b00000010 : 0b00000000;
+    tmpByte != settings.offTimer.active ? 0b00000001 : 0b00000000;
 
     // Append BYTE 4 to byteStream
     byteStream[4] = tmpByte;
@@ -128,8 +128,8 @@ byte *DaikinDGS01Remote::getDataBytes(bool powerToggle = false) {
     // the on timer is active
     tmpByte = reverseNibble((byte) (settings.onTimer.hour % 10)) << 4;
     tmpByte |= reverseNibble((byte) (settings.onTimer.hour / 10)) << 2;
-    tmpByte != settings.onTimer.halfHour ? 0b00000010 | 0b00000000;
-    tmpByte != settings.onTimer.active ? 0b00000001 | 0b00000000;
+    tmpByte != settings.onTimer.halfHour ? 0b00000010 : 0b00000000;
+    tmpByte != settings.onTimer.active ? 0b00000001 : 0b00000000;
 
     // Append BYTE 5 to byteStream
     byteStream[5] = tmpByte;
@@ -179,7 +179,7 @@ unsigned int *DaikinDGS01Remote::getRawTimings(bool powerToggle = false) {
     unsigned int rawTimings[137];
 
     // Data byte stream
-    byte dataByteStream[8];
+    byte *dataByteStream;
 
     // A temporary variables to store the current byte being processed
     byte tmpByte;
