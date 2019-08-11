@@ -18,7 +18,6 @@ DaikinDGS01Remote::DaikinDGS01Remote() {
     settings.temperature        = 28;
     settings.swing              = true;
     settings.sleep              = false;
-    settings.powerButton        = false;
 }
 
 // Set the operation mode of bit
