@@ -5,9 +5,9 @@ using the DGS01 remote. These timings can be sent to the Air Conditioner using
 IRremote's sendraw() method.
 
 
-**************************
-* WARNING AND DISCLAIMER *
-**************************
+**********************
+WARNING AND DISCLAIMER
+**********************
 
 This library is a WORK IN PROGRESS. Most or all of it has NOT BEEN TESTED. Sending
 malformed or illegal codes to your AC could potentially damage it permanently. I
