@@ -77,9 +77,6 @@ class DaikinDGS01Remote
 
         // Air conditioner settings
         ac_settings_t settings;
-
-        // Raw pulse timings
-        //raw_timing_t rawTimings;
 };
 
 #endif
