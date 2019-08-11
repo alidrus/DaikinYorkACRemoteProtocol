@@ -40,9 +40,13 @@ class DaikinDGS01Remote
 
         void setSwing(bool active);
 
-        unsigned int *getRawTimings(bool powerButton = false);
+        byte *getDataBytes(bool powerToggle = false);
+
+        unsigned int *getRawTimings(bool powerToggle = false);
 
     private:
+        // This is simply a lookup table containing the reversed bit order
+        // nibbles of numbers 0 through 15
         byte reverseNibbleLookup[16] = {
             0b0000, 0b1000, 0b0100, 0b1100, 0b0010, 0b1010, 0b0110, 0b1110,
             0b0001, 0b1001, 0b0101, 0b1101, 0b0011, 0b1011, 0b0111, 0b1111
