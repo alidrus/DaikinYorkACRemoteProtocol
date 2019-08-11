@@ -11,83 +11,12 @@
  * This include is needed so that Arduino data types are recognized by the
  * compiler.
  */
-#include <Arduino.h>
+#include "DaikinDGS01Typedefs.h"
 
 /*
- * The following typedef blocks define custom variable types which hold data
- * structures specific to this library.
+ * This is the main class for generating code to send to the AC using the
+ * protocol used by the DGS01 remote controller.
  */
-
-// The time_struct_t type is used to define a variable for storing the hour and
-// minute of the current time. This will be used to send the date/time to the
-// AC indoor unit.
-typedef struct {
-    unsigned int hour;
-    unsigned int minute;
-}  time_struct_t;
-
-// The timer_struct_t type is used to define a variable to hold the auto on/off
-// data to send to the AC indoor unit. As with the remote controller, you can
-// only define a time with 30 minute increments.
-typedef struct {
-    unsigned int hour;
-    bool halfHour;
-    bool active;
-} timer_struct_t;
-
-// The operation_mode_t type is used to define a variable to hold the desired
-// operation mode of the AC.
-typedef enum {
-    OPERATION_MODE_DRY  = 0b1000,
-    OPERATION_MODE_COOL = 0b0100,
-    OPERATION_MODE_FAN  = 0b0010
-} operation_mode_t;
-
-// The fan_mode_t type is used to define a variable to hold the fan mode of the
-// AC.
-typedef enum {
-    FAN_MODE_MANUAL_SPEED_1 = 0b0001,
-    FAN_MODE_MANUAL_SPEED_2 = 0b0010,
-    FAN_MODE_MANUAL_SPEED_3 = 0b0100,
-    FAN_MODE_AUTO           = 0b1000,
-    FAN_MODE_QUIET          = 0b1001,
-    FAN_MODE_TURBO          = 0b1100
-} fan_mode_t;
-
-// The ac_settings_t type is used to define a variable to hold all the current
-// setting of the air conditioner.
-typedef struct {
-    // Header
-    const char header = 'h';
-
-    // Operation mode
-    operation_mode_t operationMode;
-
-    // Fan Mode
-    fan_mode_t fanMode;
-
-    // Current Time
-    time_struct_t currentTime;
-
-    // On Timer
-    timer_struct_t onTimer;
-
-    // Off Timer { hour, halfHour, active }
-    timer_struct_t offTimer;
-
-    // Temperature Setting
-    int temperature;
-
-    // Louvre Swing
-    bool swing;
-
-    // Sleep Mode
-    bool sleep;
-
-    // Power Button
-    bool powerButton;
-} ac_settings_t;
-
 class DaikinDGS01Remote
 {
     public:
