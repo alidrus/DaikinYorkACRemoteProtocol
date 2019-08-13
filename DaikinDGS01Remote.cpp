@@ -75,7 +75,7 @@ void DaikinDGS01Remote::setSwing(bool active) {
  * button, 1-nibble checksum
  */
 byte *DaikinDGS01Remote::getDataBytes(bool powerToggle = false) {
-    byte byteStream[8];
+    static byte byteStream[8];
     byte tmpByte;
     int checksum = 0;
 
@@ -146,22 +146,28 @@ byte *DaikinDGS01Remote::getDataBytes(bool powerToggle = false) {
     // BYTE 7: Left nibble is a concatenation of 4-bits: Louvre Swing On/Off +
     // Sleep Mode + 1 + Power Toggle. Right nibble is the reverse bit order
     // checksum of all the reverse bit order nibbles before it.
-    tmpByte = (settings.swing ? 0b1000 : 0b0000) // Louvre Swing On/Off
-        || (settings.sleep ? 0b0100 : 0b0000)    // Sleep Mode On/Off
-        || 0b0010                                // This bit is always 1
-        || (powerToggle ? 0b0001 : 0b0000);      // Power toggle bit
-    for (int i = 0; i < 7; i++)
+    tmpByte = (settings.swing ? 0b1000 : 0b0000);  // Louvre Swing On/Off
+    tmpByte |= (settings.sleep ? 0b0100 : 0b0000); // Sleep Mode On/Off
+    tmpByte |= 0b0010;                             // This bit is always 1
+    tmpByte |= (powerToggle ? 0b0001 : 0b0000);    // Power toggle bit
+
+    // Append left half of BYTE 7 to byteStream
+    byteStream[7] = tmpByte << 4;
+
+    for (int i = 0; i < 8; i++)
     {
         // Add reverse left nibble value
-        checksum += reverseNibble(byteStream, true);
+        checksum += reverseNibble(byteStream[i], true);
 
         // Add reverse right nibble value
-        checksum += reverseNibble(byteStream);
+        if (i < 7)
+        {
+            checksum += reverseNibble(byteStream[i]);
+        }
     }
-    tmpByte |= reverseNibble(checksum);
 
-    // Append BYTE 7 to byteStream
-    byteStream[7] = tmpByte;
+    // OR checksum with BYTE 7 of byteStream
+    byteStream[7] |= reverseNibble(checksum);
 
     return byteStream;
 }
@@ -176,7 +182,7 @@ byte *DaikinDGS01Remote::getDataBytes(bool powerToggle = false) {
 unsigned int *DaikinDGS01Remote::getRawTimings(bool powerToggle = false) {
     // Storage for the raw timings (in microseconds) of the pulses and pauses
     // we are sending to the AC.
-    unsigned int rawTimings[137];
+    static unsigned int rawTimings[137];
 
     // Data byte stream
     byte *dataByteStream;
@@ -189,7 +195,7 @@ unsigned int *DaikinDGS01Remote::getRawTimings(bool powerToggle = false) {
 
     // Start the rawTimings array with the "beginning of transmission" signal
     // pulses/pauses
-    for (int i = 0; i < sizeof(beginTransmission); i++)
+    for (int i = 0; i < 6; i++)
     {
         rawTimings[timingPosition++] = beginTransmission[i];
     }
@@ -210,13 +216,13 @@ unsigned int *DaikinDGS01Remote::getRawTimings(bool powerToggle = false) {
             rawTimings[timingPosition++] = pulseLength;
 
             // Add pause (long pause if bit is 1 and short pause if bit is 0)
-            rawTimings[timingPosition++] = ((tmpByte >> i) & 0x00000001) ? pauseLength1 : pauseLength0;
+            rawTimings[timingPosition++] = ((tmpByte >> (7-i)) & 0x00000001) ? pauseLength1 : pauseLength0;
         }
     }
 
     // End the rawTimings array with the "end of transmission" signal
     // pulses/pause
-    for (int i = 0; i < sizeof(endTransmission); i++)
+    for (int i = 0; i < 3; i++)
     {
         rawTimings[timingPosition++] = endTransmission[i];
     }
