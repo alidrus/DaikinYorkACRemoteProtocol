@@ -11,7 +11,7 @@
  * This include is needed so that Arduino data types are recognized by the
  * compiler.
  */
-#include "DaikinDGS01Typedefs.h"
+#include "DaikinYorkACTypedefs.h"
 
 /*
  * This is the main class for generating code to send to the AC using the
