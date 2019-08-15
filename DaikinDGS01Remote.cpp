@@ -216,9 +216,10 @@ unsigned int *DaikinDGS01Remote::getRawTimings(bool powerToggle = false) {
             rawTimings[timingPosition++] = pulseLength;
 
             // Add pause (long pause if bit is 1 and short pause if bit is 0)
-            rawTimings[timingPosition++] = ((tmpByte >> (7-i)) & 0x00000001) ? pauseLength1 : pauseLength0;
+            rawTimings[timingPosition++] = ((tmpByte >> (7-j)) & 0x00000001) ? pauseLength1 : pauseLength0;
         }
     }
+
 
     // End the rawTimings array with the "end of transmission" signal
     // pulses/pause
