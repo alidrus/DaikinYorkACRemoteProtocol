@@ -4,8 +4,8 @@
  * The ifndef tells the compiler to only compile the following lines if it has
  * not been done before
  */
-#ifndef DAIKIN_DGS01_TYPEDEFS_H
-#define DAIKIN_DGS01_TYPEDEFS_H
+#ifndef DAIKIN_YORK_AC_TYPEDEFS_H
+#define DAIKIN_YORK_AC_TYPEDEFS_H
 
 /*
  * This include is needed so that Arduino data types are recognized by the
