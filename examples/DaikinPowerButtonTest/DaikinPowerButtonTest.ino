@@ -15,7 +15,7 @@
  */
 
 #include <IRremote.h>
-#include <DaikinDGS01Remote.h>
+#include <DaikinYorkACRemoteProtocol.h>
 
 #define IR_CARRIER_FREQUENCY 38
 
