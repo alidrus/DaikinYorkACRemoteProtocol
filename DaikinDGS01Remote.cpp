@@ -1,9 +1,9 @@
 // vim: syntax=c autoindent smartindent expandtab tabstop=4 shiftwidth=4 softtabstop=4:
 
-#include "DaikinDGS01Remote.h"
+#include "DaikinYorkACRemoteProtocol.h"
 
 // Class Constructor
-DaikinDGS01Remote::DaikinDGS01Remote() {
+DaikinYorkACRemoteProtocol::DaikinYorkACRemoteProtocol() {
     // Initialize the settings with default values
     settings.operationMode      = OPERATION_MODE_COOL;
     settings.fanMode            = FAN_MODE_AUTO;
@@ -21,15 +21,15 @@ DaikinDGS01Remote::DaikinDGS01Remote() {
 }
 
 // Set the operation mode of bit
-void DaikinDGS01Remote::setOperationMode(operation_mode_t operationMode) {
+void DaikinYorkACRemoteProtocol::setOperationMode(operation_mode_t operationMode) {
     settings.operationMode = operationMode;
 }
 
-void DaikinDGS01Remote::setFanMode(fan_mode_t fanMode) {
+void DaikinYorkACRemoteProtocol::setFanMode(fan_mode_t fanMode) {
     settings.fanMode = fanMode;
 }
 
-void DaikinDGS01Remote::setTime(time_struct_t currentTime) {
+void DaikinYorkACRemoteProtocol::setTime(time_struct_t currentTime) {
     if (currentTime.hour <= 23 && currentTime.hour >= 0
         && currentTime.minute <= 59 && currentTime.minute >= 0)
     {
@@ -37,7 +37,7 @@ void DaikinDGS01Remote::setTime(time_struct_t currentTime) {
     }
 }
 
-void DaikinDGS01Remote::setOnTimer(timer_struct_t onTimer) {
+void DaikinYorkACRemoteProtocol::setOnTimer(timer_struct_t onTimer) {
     if (onTimer.hour <= 23 && onTimer.hour >= 0
         && (onTimer.halfHour || !onTimer.halfHour))
     {
@@ -45,25 +45,25 @@ void DaikinDGS01Remote::setOnTimer(timer_struct_t onTimer) {
     }
 }
 
-void DaikinDGS01Remote::setOffTimer(timer_struct_t offTimer) {
+void DaikinYorkACRemoteProtocol::setOffTimer(timer_struct_t offTimer) {
     if (offTimer.hour <= 23 && offTimer.hour >= 0)
     {
         settings.offTimer = offTimer;
     }
 }
 
-void DaikinDGS01Remote::setTemperature(int temperature) {
+void DaikinYorkACRemoteProtocol::setTemperature(int temperature) {
     if (temperature >= 16 && temperature <= 30)
     {
         settings.temperature = temperature;
     }
 }
 
-void DaikinDGS01Remote::setSleep(bool active) {
+void DaikinYorkACRemoteProtocol::setSleep(bool active) {
     settings.sleep = active;
 }
 
-void DaikinDGS01Remote::setSwing(bool active) {
+void DaikinYorkACRemoteProtocol::setSwing(bool active) {
     settings.sleep = active;
 }
 
@@ -74,7 +74,7 @@ void DaikinDGS01Remote::setSwing(bool active) {
  * 1-byte for temperature setting, 1-nibble for swing mode/sleep mode/power
  * button, 1-nibble checksum
  */
-byte *DaikinDGS01Remote::getDataBytes(bool powerToggle = false) {
+byte *DaikinYorkACRemoteProtocol::getDataBytes(bool powerToggle = false) {
     static byte byteStream[8];
     byte tmpByte;
     int checksum = 0;
@@ -174,12 +174,12 @@ byte *DaikinDGS01Remote::getDataBytes(bool powerToggle = false) {
 
 /*
  * This method generates raw pulse/pause timings to send to the AC by using the
- * *DaikinDGS01Remote::getDataBytes() method to generate the byte stream and
+ * *DaikinYorkACRemoteProtocol::getDataBytes() method to generate the byte stream and
  * then converting that to raw pulses. The raw pulse data can then be fed to
  * another function or class that handles the actual transmission of those
  * pulses to the AC.
  */
-unsigned int *DaikinDGS01Remote::getRawTimings(bool powerToggle = false) {
+unsigned int *DaikinYorkACRemoteProtocol::getRawTimings(bool powerToggle = false) {
     // Storage for the raw timings (in microseconds) of the pulses and pauses
     // we are sending to the AC.
     static unsigned int rawTimings[137];
@@ -235,7 +235,7 @@ unsigned int *DaikinDGS01Remote::getRawTimings(bool powerToggle = false) {
 // reverse byte order nibble and return it to the caller. The leftNibble
 // argument is true if we want the reverse byte order nibble of the left nibble
 // of a byte.
-byte DaikinDGS01Remote::reverseNibble(byte nibble, bool leftNibble = false)
+byte DaikinYorkACRemoteProtocol::reverseNibble(byte nibble, bool leftNibble = false)
 {
     if (!leftNibble)
     {
