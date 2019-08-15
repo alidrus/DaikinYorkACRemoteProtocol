@@ -4,8 +4,8 @@
  * The ifndef tells the compiler to only compile the following lines if it has
  * not been done before
  */
-#ifndef DAIKIN_DGS01_REMOTE_H
-#define DAIKIN_DGS01_REMOTE_H
+#ifndef DAIKIN_YORK_AC_REMOTE_PROTOCOL_H
+#define DAIKIN_YORK_AC_REMOTE_PROTOCOL_H
 
 /*
  * This include is needed so that Arduino data types are recognized by the
@@ -14,15 +14,17 @@
 #include "DaikinYorkACTypedefs.h"
 
 /*
- * This is the main class for generating code to send to the AC using the
- * protocol used by the DGS01 remote controller.
+ * This is the abstract class for generating code to send to the AC using the
+ * protocol used by some Daikin and York AC remote controllers. This was
+ * written based on results of reverse engineering the Daikin DGS01 and York
+ * ECGS01-i remotes.
  */
-class DaikinDGS01Remote
+class DaikinYorkACRemoteProtocol
 {
     public:
 
         // Constructor
-        DaikinDGS01Remote();
+        DaikinYorkACRemoteProtocol();
 
         void setOperationMode(operation_mode_t operationMode);
 
