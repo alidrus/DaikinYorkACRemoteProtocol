@@ -2,25 +2,7 @@
 
 #include "DaikinYorkACRemoteProtocol.h"
 
-// Class Constructor
-DaikinYorkACRemoteProtocol::DaikinYorkACRemoteProtocol() {
-    // Initialize the settings with default values
-    settings.operationMode      = OPERATION_MODE_COOL;
-    settings.fanMode            = FAN_MODE_AUTO;
-    settings.currentTime.hour   = 0;
-    settings.currentTime.minute = 0;
-    settings.onTimer.hour       = 0;
-    settings.onTimer.halfHour   = true;
-    settings.onTimer.active     = false;
-    settings.offTimer.hour      = 0;
-    settings.offTimer.halfHour  = true;
-    settings.offTimer.active    = false;
-    settings.temperature        = 28;
-    settings.swing              = true;
-    settings.sleep              = false;
-}
-
-// Set the operation mode of bit
+// Set the operation mode of bit.
 void DaikinYorkACRemoteProtocol::setOperationMode(operation_mode_t operationMode) {
     settings.operationMode = operationMode;
 }
@@ -179,7 +161,7 @@ byte *DaikinYorkACRemoteProtocol::getDataBytes(bool powerToggle = false) {
  * another function or class that handles the actual transmission of those
  * pulses to the AC.
  */
-unsigned int *DaikinYorkACRemoteProtocol::getRawTimings(bool powerToggle = false) {
+unsigned int *DaikinDGS01RemoteProtocol::getRawTimings(bool powerToggle = false) {
     // Storage for the raw timings (in microseconds) of the pulses and pauses
     // we are sending to the AC.
     static unsigned int rawTimings[137];
@@ -229,18 +211,4 @@ unsigned int *DaikinYorkACRemoteProtocol::getRawTimings(bool powerToggle = false
     }
 
     return rawTimings;
-}
-
-// This method takes a nibble and uses the reverseNibbleLookup array to map the
-// reverse byte order nibble and return it to the caller. The leftNibble
-// argument is true if we want the reverse byte order nibble of the left nibble
-// of a byte.
-byte DaikinYorkACRemoteProtocol::reverseNibble(byte nibble, bool leftNibble = false)
-{
-    if (!leftNibble)
-    {
-        return reverseNibbleLookup[nibble & 0xF];
-    }
-
-    return reverseNibbleLookup[nibble >> 4];
 }
