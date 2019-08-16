@@ -24,7 +24,7 @@
 typedef struct {
     unsigned int hour;
     unsigned int minute;
-}  time_struct_t;
+} time_struct_t;
 
 // The timer_struct_t type is used to define a variable to hold the auto on/off
 // data to send to the AC indoor unit. As with the remote controller, you can
