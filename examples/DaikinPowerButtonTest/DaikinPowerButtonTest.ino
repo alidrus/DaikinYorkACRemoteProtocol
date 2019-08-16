@@ -30,7 +30,7 @@ DaikinDGS01RemoteProtocol irObj;
 byte *dataBytes;
 unsigned int *rawTimings;
 
-// 
+//
 void setup() {
 
 #ifdef DEBUG
