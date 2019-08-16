@@ -270,20 +270,7 @@ byte *YorkECGS01iRemoteProtocol::getDataBytes(bool powerToggle = false) {
     // Append BYTE 3 to byteStream
     byteStream[3] = tmpByte;
 
-    // BYTE 4: Left nibble is the right digit of the off timer time in hours
-    // and the first two bits of the right nibble is the left digit of the off
-    // timer time in hours. The third bit of the nibble is 1 when the off
-    // timer time is at half past the hour, else 0. The last bit is 1 only when
-    // the off timer is active
-    tmpByte = reverseNibble((byte) (settings.offTimer.hour % 10)) << 4;
-    tmpByte |= reverseNibble((byte) (settings.offTimer.hour / 10)) << 2;
-    tmpByte != settings.offTimer.halfHour ? 0b00000010 : 0b00000000;
-    tmpByte != settings.offTimer.active ? 0b00000001 : 0b00000000;
-
-    // Append BYTE 4 to byteStream
-    byteStream[4] = tmpByte;
-
-    // BYTE 5: Left nibble is the right digit of the on timer time in hours
+    // BYTE 4: Left nibble is the right digit of the on timer time in hours
     // and the first two bits of the right nibble is the left digit of the on
     // timer time in hours. The third bit of the nibble is 1 when the on
     // timer time is at half past the hour, else 0. The last bit is 1 only when
@@ -292,6 +279,19 @@ byte *YorkECGS01iRemoteProtocol::getDataBytes(bool powerToggle = false) {
     tmpByte |= reverseNibble((byte) (settings.onTimer.hour / 10)) << 2;
     tmpByte != settings.onTimer.halfHour ? 0b00000010 : 0b00000000;
     tmpByte != settings.onTimer.active ? 0b00000001 : 0b00000000;
+
+    // Append BYTE 4 to byteStream
+    byteStream[4] = tmpByte;
+
+    // BYTE 5: Left nibble is the right digit of the off timer time in hours
+    // and the first two bits of the right nibble is the left digit of the off
+    // timer time in hours. The third bit of the nibble is 1 when the off
+    // timer time is at half past the hour, else 0. The last bit is 1 only when
+    // the off timer is active
+    tmpByte = reverseNibble((byte) (settings.offTimer.hour % 10)) << 4;
+    tmpByte |= reverseNibble((byte) (settings.offTimer.hour / 10)) << 2;
+    tmpByte != settings.offTimer.halfHour ? 0b00000010 : 0b00000000;
+    tmpByte != settings.offTimer.active ? 0b00000001 : 0b00000000;
 
     // Append BYTE 5 to byteStream
     byteStream[5] = tmpByte;
