@@ -49,7 +49,7 @@ class NibbleManipulation
  * by some Daikin and York AC remote controllers. This was written based on
  * results of reverse engineering the Daikin DGS01 and York ECGS01-i remotes.
  */
-class DaikinYorkACRemoteProtocol : protected NibbleManipulation
+class DaikinYorkACRemoteProtocol
 {
     public:
         // Constructor
@@ -87,27 +87,13 @@ class DaikinYorkACRemoteProtocol : protected NibbleManipulation
 
         void setSwing(bool active);
 
-        byte *getDataBytes(bool powerToggle = false);
-
-    private:
-        // Air conditioner settings
-        ac_settings_t settings;
-};
-
-/*
- * Daikin DGS01 remote protocol class is derived from
- * DaikinYorkACRemoteProtocol but has its own set of pulse widths and method
- * for constructing raw timings.
- */
-class DaikinDGS01RemoteProtocol : public DaikinYorkACRemoteProtocol,
-                                  private NibbleManipulation
-{
-    public:
+        // Get data bytes of the signal we will be sending to the AC.
+        virtual byte *getDataBytes(bool powerToggle = false);
 
         // Get the raw timings based on the data bytes
         unsigned int *getRawTimings(bool powerToggle = false);
 
-    protected:
+    private:
 
         // Pulse and pause lengths
         const unsigned int pulseLength  = 368; // 368 us pulse
@@ -130,9 +116,50 @@ class DaikinDGS01RemoteProtocol : public DaikinYorkACRemoteProtocol,
             4624   // 4.624 ms pulse
         };
 
-    private:
         // Air conditioner settings
         ac_settings_t settings;
+
+};
+
+/*
+ * Daikin DGS01 remote protocol class is derived from
+ * DaikinYorkACRemoteProtocol but has its own set of pulse widths and method
+ * for constructing raw timings.
+ */
+class DaikinDGS01RemoteProtocol : public DaikinYorkACRemoteProtocol,
+                                  private NibbleManipulation
+{
+    public:
+
+        // Get data bytes of the signal we will be sending to the AC.
+        byte *getDataBytes(bool powerToggle = false);
+
+    private:
+
+        // Pulse and pause lengths
+        const unsigned int pulseLength  = 368; // 368 us pulse
+        const unsigned int pauseLength0 = 368; // 368 us space
+        const unsigned int pauseLength1 = 944; // 944 us space
+
+        // The "beginning of transmission" signal consists of the following
+        // pulse/pause pairs
+        const unsigned int beginTransmission[6] = {
+            9788, 9676, // 9.788ms pulse, 9.676ms pause
+            9812, 9680, // 9.812ms pulse, 9.680ms pause
+            4652, 2408  // 4.652ms pulse, 2.408ms pause
+        };
+
+        // The "end of transmission" signal consists of the following pulses
+        // and pause
+        const unsigned int endTransmission[3] = {
+            368,   // 368us pulse
+            20340, // 20.34ms pause
+            4624   // 4.624 ms pulse
+        };
+
+        // Air conditioner settings
+        ac_settings_t settings;
+
 };
 
 /*
@@ -145,10 +172,10 @@ class YorkECGS01iRemoteProtocol : public DaikinYorkACRemoteProtocol,
 {
     public:
 
-        // Get the raw timings based on the data bytes
-        unsigned int *getRawTimings(bool powerToggle = false);
+        // Get data bytes of the signal we will be sending to the AC.
+        byte *getDataBytes(bool powerToggle = false);
 
-    protected:
+    private:
 
         // Pulse and pause lengths
         const unsigned int pulseLength  = 436; // 436 us pulse
@@ -166,14 +193,14 @@ class YorkECGS01iRemoteProtocol : public DaikinYorkACRemoteProtocol,
         // The "end of transmission" signal consists of the following pulses
         // and pause
         const unsigned int endTransmission[3] = {
-            436,   // 368us pulse
+            436,   // 436us pulse
             20052, // 20.05ms pause
             4652   // 4.652 ms pulse
         };
 
-    private:
         // Air conditioner settings
         ac_settings_t settings;
+
 };
 
 #endif
