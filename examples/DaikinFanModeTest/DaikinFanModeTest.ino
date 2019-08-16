@@ -68,7 +68,7 @@ void loop() {
         {
             Serial.print(", ");
 
-            if (i > 0 && (i % 10) == 0)
+            if (i > 0 && ((i + 1) % 10) == 0)
             {
                 Serial.println();
             }
