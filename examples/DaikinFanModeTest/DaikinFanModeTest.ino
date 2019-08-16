@@ -17,25 +17,30 @@
 #include <IRremote.h>
 #include <DaikinYorkACRemoteProtocol.h>
 
+// The carrier frequency to use for the IR remote.
 #define IR_CARRIER_FREQUENCY 38
 
+// Define this if you want to see debug messages in the Serial monitor.
+#undef DEBUG
+
 IRsend irsend;
-DaikinDGS01Remote irObj;
+DaikinDGS01RemoteProtocol irObj;
 
 // Define variables to use
 byte *dataBytes;
 unsigned int *rawTimings;
 bool fanModeToggle = false;
 
-/*
- * All code will be in the setup as we are sending to the AC only once.
- */
+// 
 void setup() {
+
+#ifdef DEBUG
+    Serial.begin(9600);
+#endif
+
 }
 
-/*
- * We are not running the loop as this will not be a repetitive process.
- */
+//
 void loop() {
     delay(10000);
 
@@ -53,6 +58,28 @@ void loop() {
     // Get the raw timings for the signal
     rawTimings = irObj.getRawTimings();
 
-    // Send raw signals to the AC remote
+#ifdef DEBUG
+    Serial.println("These are the raw timings we generated:");
+
+    for (int i = 0; i < 137; i++)
+    {
+        Serial.print(rawTimings[i], DEC);
+        if (i < 136)
+        {
+            Serial.print(", ");
+
+            if (i > 0 && (i % 10) == 0)
+            {
+                Serial.println();
+            }
+        }
+    }
+    Serial.println();
+#endif
+
+    // Send the raw signals that we generated to the AC remote
+#ifdef DEBUG
+    Serial.println("Sending to AC.");
+#endif
     irsend.sendRaw(rawTimings, 137, IR_CARRIER_FREQUENCY);
 }
